@@ -1,7 +1,12 @@
 
 <mat-card>
   <mat-form-field>
-    <textarea matInput rows=6 [(ngModel)]="enteredValue"></textarea>
+    <input matInput type="text" [(ngModel)]="enteredTitle"/>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <textarea matInput rows=6 [(ngModel)]="enteredContent"></textarea>
   </mat-form-field>
   <button
     mat-raised-button
@@ -9,4 +14,4 @@
     (click)="onAddPost()">Save Post</button>
 </mat-card>
 <!-- String interpolation replaces the placeholder {{}} with the coresponding values-->
-<p>{{ newPost }}</p>
+<!-- <p>{{ newPost }}</p> -->
