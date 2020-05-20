@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { Post } from '../post.model'
+import { Post } from '../post.model';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-post-list',
@@ -15,5 +16,10 @@ export class PostListComponent {
 
   // The posts array is recieving data from the <app-post-list> in app.component.html
   @Input() posts: Post[] = [];
+
+  // Storing the posts service in the property of this file using the public keyword.
+  constructor(public postsService: PostsService) {
+
+  }
 
 }
