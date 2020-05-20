@@ -16,6 +16,6 @@ export class AppComponent {
   onPostAdded(post) {
     // It is recieving this post from the app.component.html file
     // Pushing push() the post recieved from the user to the storedPost array declared above
-      this.storedPosts.push();
+      this.storedPosts.push(post);
   }
 }

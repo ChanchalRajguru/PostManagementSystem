@@ -1,5 +1,6 @@
 
 <mat-card>
+  <!-- #<form-name>="ngForm" is a directive which gives access to the form values-->
   <form (submit)="onAddPost(postForm)" #postForm="ngForm">
     <mat-form-field>
       <input
@@ -11,7 +12,7 @@
     <mat-form-field>
       <textarea
         matInput
-        rows=6
+        rows="4"
         name="content"
         ngModel>
       </textarea>
@@ -19,6 +20,7 @@
     <button
       mat-raised-button
       color="accent"
+      name="submit"
       type="submit">Save Post</button>
   </form>
 </mat-card>
