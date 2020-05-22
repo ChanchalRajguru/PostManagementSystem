@@ -1,6 +1,8 @@
 import { Post } from './post.model';
 import { Injectable } from '@angular/core';
+import  {HttpClient} from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -8,8 +10,15 @@ export class PostsService {
   //Subjects help us to create objects that can distribute data.
   private postsUpdated = new Subject<Post[]>();
 
+  constructor(private http: HttpClient) {
+
+  }
+  //Unsubscription is handled by angular for observables connected to the features built-in like HTTP.
   getPosts() {
-    return [...this.posts];
+    this.http.get('http://localhost:3000/api/posts')
+    .subscribe(()=> {
+
+    });
   }
 
   // return an object that we can listen but can't emit outside.
@@ -17,8 +26,8 @@ export class PostsService {
     return this.postsUpdated.asObservable();
   }
 
-  addPost(title: string, content: string) {
-    const post: Post = { title: title, content: content };
+  addPost(id:string, title: string, content: string) {
+    const post: Post = {id:id, title: title, content: content };
     // Updates the post
     this.posts.push(post);
 
