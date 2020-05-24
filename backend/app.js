@@ -1,15 +1,23 @@
 //Imports use require keyword
 const express = require("express");
+const bodyParser = require("body-parser");
+
 
 //execute the express package as a function and store it in a constant variable
 const app = express();
+
+//Middleware for parsing JSON data
+app.use(bodyParser.json());
+
+//To parse Middleware encoded data
+app.use(bodyParser.urlencoded({extended: false})); // 'extended: false' only supports the default encoding
 
 app.use((req, res, next) => {
   // * (star) mean allow access from all domains 4000, 4001,...
   res.setHeader("Access-Control-Allow-Origin","*");
 
   // Allows these headers requested from the domain
-  res.setHeader("Access-Control-Allow-Header","Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
 
   //
   res.setHeader("Access-Control-Allow-Methods",
@@ -35,6 +43,15 @@ for the request to pass on to the bottom middlewares */
 
 /* the request will not go to the next middlewares in the file as its
 not using the next function */
+
+app.post("/api/posts", (req,res, next)=>{
+  const post = req.body; //body is a new field added by bodyparser package
+  console.log(post);
+  res.status(201).json({
+    message: "Post added successfully!!"
+  });
+});
+
 app.use("/api/posts", (req, res, next) => {
   const posts = [
     {
