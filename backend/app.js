@@ -4,6 +4,22 @@ const express = require("express");
 //execute the express package as a function and store it in a constant variable
 const app = express();
 
+app.use((req, res, next) => {
+  // * (star) mean allow access from all domains 4000, 4001,...
+  res.setHeader("Access-Control-Allow-Origin","*");
+
+  // Allows these headers requested from the domain
+  res.setHeader("Access-Control-Allow-Header","Origin, X-Requested-With, Content-Type, Accept");
+
+  //
+  res.setHeader("Access-Control-Allow-Methods",
+  "GET, POST, PATCH, DELETE, OPTIONS")
+  next();
+});
+
+
+
+
 /* An Express app is a big chain of middlewares, that we apply to incoming requests
 in that funnel we have different parts and every part can do something with
 the request like manipulate it, read values from it or do something with the response or send the response.
@@ -15,6 +31,7 @@ for the request to pass on to the bottom middlewares */
 //   console.log("First middlwware");
 //   next();
 // });
+
 
 /* the request will not go to the next middlewares in the file as its
 not using the next function */
