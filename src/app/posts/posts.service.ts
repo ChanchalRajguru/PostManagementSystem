@@ -15,9 +15,10 @@ export class PostsService {
   }
   //Unsubscription is handled by angular for observables connected to the features built-in like HTTP.
   getPosts() {
-    this.http.get('http://localhost:3000/api/posts')
-    .subscribe(()=> {
-
+    this.http.get<{message: string, posts: Post[]}>('http://localhost:3000/api/posts')
+    .subscribe((postData)=> {
+      this.posts = postData.posts;
+      this.postsUpdated.next([...this.posts]);
     });
   }
 
@@ -26,8 +27,8 @@ export class PostsService {
     return this.postsUpdated.asObservable();
   }
 
-  addPost(id:string, title: string, content: string) {
-    const post: Post = {id:id, title: title, content: content };
+  addPost(title: string, content: string) {
+    const post: Post = {id:null, title: title, content: content };
     // Updates the post
     this.posts.push(post);
 
