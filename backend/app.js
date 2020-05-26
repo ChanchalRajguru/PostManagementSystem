@@ -2,6 +2,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+const Post = require("./models/post")
+
 
 //execute the express package as a function and store it in a constant variable
 const app = express();
@@ -32,20 +34,17 @@ app.use((req, res, next) => {
 in that funnel we have different parts and every part can do something with
 the request like manipulate it, read values from it or do something with the response or send the response.
  */
-//Use the app middleware
-/* Note in the app middleware we need to either send a response or do next()
-for the request to pass on to the bottom middlewares */
-// app.use((req, res, next)=> {
-//   console.log("First middlwware");
-//   next();
-// });
 
 
 /* the request will not go to the next middlewares in the file as its
 not using the next function */
 
 app.post("/api/posts", (req,res, next)=>{
-  const post = req.body; //body is a new field added by bodyparser package
+  //body is a new field added by bodyparser package
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content
+  });
   console.log(post);
   res.status(201).json({
     message: "Post added successfully!!"
