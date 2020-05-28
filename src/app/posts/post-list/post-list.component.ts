@@ -42,6 +42,11 @@ export class PostListComponent implements OnInit, OnDestroy {
       });
   }
 
+  onDelete(postId:string){
+    this.postsService.deletePost(postId);
+  }
+
+
   // This method helps us to unsubscribe when the method is destroyed, to help prevent any memory leaks.
   ngOnDestroy() {
     this.postsSub.unsubscribe();
